@@ -1,0 +1,9 @@
+# cocos2d
+
+runtime/
+
+publish/
+
+.settings/
+
+.DS_Store
