@@ -790,7 +790,7 @@ var Layer7 = cc.LayerColor.extend({
 	},
 	initUI: function () {
 		canChangePage = false;
-		this.setColor(cc.color(173, 234, 123, 0));
+		this.setColor(cc.color(0, 161, 233, 0));
 		this.setContentSize(cc.winSize);
 		
 		this.accLayer = new cc.Layer();
@@ -884,7 +884,7 @@ var Layer8 = cc.LayerColor.extend({
 	},
 	initUI: function () {
 		canChangePage = false;
-		this.setColor(cc.color(0, 161, 233, 0));
+		this.setColor(cc.color(173, 234, 123, 0));
 		this.setContentSize(cc.winSize);
 		
 		this.accLayer = new cc.Layer();
