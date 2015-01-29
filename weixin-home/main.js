@@ -47,6 +47,8 @@
  *
  */
   
+st = {"isWideScreen": true};
+
 cc.game.onStart = function(){
     cc.view.adjustViewPort(true);
     
@@ -57,10 +59,19 @@ cc.game.onStart = function(){
     		cc.ResolutionPolicy.FIXED_HEIGHT : cc.sys.isMobile ? cc.ResolutionPolicy.FIXED_WIDTH : cc.ResolutionPolicy.SHOW_ALL;
     
     mode = cc.ResolutionPolicy.EXACT_FIT;
-    var w = document.body.clientWidth;
-    var h = document.body.clientHeight;
+//    var w = cc.container.clientWidth;// document.body.clientWidth;
+//    var h = cc.container.clientHeight;//  document.body.clientHeight;
+    
+    var w =  document.body.clientWidth;
+    var h =  document.body.clientHeight;
+    
+    
     cc.log("屏幕的w,h", w,h);
     cc.view.setDesignResolutionSize(w, h, mode);
+    cc.log("容器大小。。",cc.container.clientWidth,cc.container.clientHeight);
+    
+    var gm = document.getElementById("gameCanvas");
+    cc.log("cong html zhonglai d ",gm.width, gm.height);
     
 //    cc.container.set
     
@@ -78,6 +89,7 @@ cc.game.onStart = function(){
     preLoad(g_resources, function () {
 //        cc.director.runScene(new HelloWorldScene());
 //    	cc.view.setDesignResolutionSize(w, h, mode);
+//    	cc.log("wwwwwwww",cc.container.width,cc.container.height);
         cc.director.runScene(new MainScene());
     }, this);
 };

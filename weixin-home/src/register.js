@@ -1,5 +1,5 @@
 /**
- * Created by wzm on 14-10-8.
+ * star 2015.1.26
  */
 //cc.SPRITE_DEBUG_DRAW = 1;
 var canChangePage = true;
@@ -46,7 +46,15 @@ var MainScene = cc.Scene.extend({
             this.arrow.opacity = 255;
         }, this)));
         this.arrow.runAction(arrowAction);
-        this.arrow.setScale(0.5);
+        
+        if(cc.container.clientWidth < cc.container.clientHeight){
+//        if (cc.size.width < cc.size.height){
+        	this.arrow.setScale(0.6,0.4);
+        }else{
+        	this.arrow.setScale(0.8,0.3);
+        }
+        
+//        this.arrow.setScale(0.5);
         this.addChild(this.arrow, 1);
 
         this.menuItemToggle = new cc.MenuItemToggle(new cc.MenuItemImage("#music.png"), new cc.MenuItemImage("#music_sel.png"), this.toggleMusicCallback, this);
@@ -175,7 +183,7 @@ var MainScene = cc.Scene.extend({
     	cc.log("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
         canChangePage = false;
         var scene = next ? this.sceneList[index - 1] : this.sceneList[index + 1];
-        if (index == 4) {
+        if (index == this.sceneList.length-1) {
             this.togleArrow(false);
         } else {
             this.togleArrow(true);
@@ -218,29 +226,49 @@ var Layer1 = cc.LayerColor.extend({
         canChangePage = false;
         this.setColor(cc.color(241, 145, 73, 0));
         this.setContentSize(cc.winSize);
-        cc.log("winSize = ", cc.winSize.width, cc.winSize.height)
-        
+        cc.log("winSize = ", cc.winSize.width, cc.winSize.height);
         cc.log("visibleRect center = ", cc.visibleRect.center.x, cc.visibleRect.center.y);
-        
+
         this.accLayer = new cc.Layer();
         this.accLayer.anchorX = 0;
         this.accLayer.anchorY = 0;
         this.accLayer.x = 0;
         this.accLayer.y = 0;
         this.addChild(this.accLayer);
+        cc.log("st width.....",cc.winSize.width, st.height, cc.size.width < st.height);
+        if(cc.container.clientWidth < cc.container.clientHeight){
+//        if (cc.winSize.width < st.height){
+        	cc.log("..this is h.......")
+//        if (cc.size.width < cc.size.height){
+	        this.mainPic = new cc.Sprite("res/hpic/p1.png");
+	        var mainPicSize = this.mainPic.getContentSize();
+	        var dx = cc.winSize.width/mainPicSize.width;
+	        var dy = 150/mainPicSize.height;
+	        cc.log("dx = ", dx, "dy = ", dy);
+	        this.mainPic.setPosition(cc.p(cc.winSize.width/2, 97));
+	        this.mainPic.setScale(dx, 0.15);
+	        this.accLayer.addChild(this.mainPic);
+	        
+	        this.sp1 = new cc.Sprite("res/hpic/pw1.png");
+	        this.sp1.setPosition(cc.p(cc.winSize.width/2, 80));
+	        this.sp1.opacity = 0;
+	        this.sp1.setScale(0.9, 0.15);
+	        this.accLayer.addChild(this.sp1);
+	    }else{
+	    	this.mainPic = new cc.Sprite("res/wpic/p1.png");
+	    	var mainPicSize = this.mainPic.getContentSize();
+	    	var dx = cc.winSize.height/mainPicSize.height;
+	    	cc.log("dx = ", dx);
+	    	this.mainPic.setPosition(cc.p(cc.winSize.width/2, 75));
+	    	this.mainPic.setScale(0.83, dx);
+	    	this.accLayer.addChild(this.mainPic);
 
-        this.mainPic = new cc.Sprite("res/hpic/p1.png");
-        this.mainPic.setPosition(cc.p(cc.winSize.width/2, 98));
-//        this.mainPic.setPosition(cc.p(0, 0));
-        this.mainPic.setScale(0.9, 0.15);
-        this.accLayer.addChild(this.mainPic);
-        
-        this.sp1 = new cc.Sprite("res/hpic/pw1.png");
-        this.sp1.setPosition(cc.p(cc.winSize.width/2, 80));
-//        this.sp1.setVisible(false);
-        this.sp1.opacity = 0;
-        this.sp1.setScale(0.9, 0.15);
-        this.accLayer.addChild(this.sp1);
+	    	this.sp1 = new cc.Sprite("res/wpic/pw1.png");
+	    	this.sp1.setPosition(cc.p(cc.winSize.width/2, 85));
+	    	this.sp1.opacity = 0;
+	    	this.sp1.setScale(0.9, 0.15);
+	    	this.accLayer.addChild(this.sp1);
+	    }
     },
     accelEvent: function (acc, event) {
         if (this.visible) {
@@ -275,7 +303,7 @@ var Layer1 = cc.LayerColor.extend({
     		}, this));
     	}
     	this.sp1.opacity = 0;
-//        this.accLayer.runAction(action);
+//  	this.accLayer.runAction(action);
     }
 });
 
@@ -299,17 +327,42 @@ var Layer2 = cc.LayerColor.extend({
 		this.accLayer.y = 0;
 		this.addChild(this.accLayer);
 
-		this.mainPic = new cc.Sprite("res/hpic/p2.png");
-		this.mainPic.setPosition(cc.p(cc.winSize.width/2,98));
-		this.mainPic.setScale(1, 1);
-		this.accLayer.addChild(this.mainPic);
+		if(cc.container.clientWidth < cc.container.clientHeight){
+//		if (cc.size.width < cc.size.height){
+			this.mainPic = new cc.Sprite("res/hpic/p2.png");
+			var mainPicSize = this.mainPic.getContentSize();
+			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
+			var dx = cc.winSize.width/mainPicSize.width;
+			cc.log("dx = ", dx);
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,97));
+			this.mainPic.setScale(dx, 0.15);
+			
+			this.accLayer.addChild(this.mainPic);
+	
+			this.sp1 = new cc.Sprite("res/hpic/pw2.png");
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,90));
+	//		this.sp1.setVisible(false);
+			this.sp1.opacity = 0;
+			this.sp1.setScale(0.9,0.15);
+			this.accLayer.addChild(this.sp1);
+		}else{
+			this.mainPic = new cc.Sprite("res/wpic/p2.png");
+			var mainPicSize = this.mainPic.getContentSize();
+			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
+			var dx = cc.winSize.height/mainPicSize.height;
+			cc.log("dx = ", dx);
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,75));
+			this.mainPic.setScale(0.83, dx);
 
-		this.sp1 = new cc.Sprite("res/hpic/pw2.png");
-		this.sp1.setPosition(cc.p(cc.winSize.width/2,90));
-//		this.sp1.setVisible(false);
-		this.sp1.opacity = 0;
-		this.sp1.setScale(0.9,0.1);
-		this.accLayer.addChild(this.sp1);
+			this.accLayer.addChild(this.mainPic);
+
+			this.sp1 = new cc.Sprite("res/wpic/pw2.png");
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,90));
+			//		this.sp1.setVisible(false);
+			this.sp1.opacity = 0;
+			this.sp1.setScale(0.9,0.15);
+			this.accLayer.addChild(this.sp1);
+		}
 	},
 	accelEvent: function (acc, event) {
 		if (this.visible) {
@@ -369,17 +422,40 @@ var Layer3 = cc.LayerColor.extend({
 		this.accLayer.y = 0;
 		this.addChild(this.accLayer);
 
-		this.mainPic = new cc.Sprite("res/hpic/p3.png");
-		this.mainPic.setPosition(cc.pAdd(cc.visibleRect.center, cc.p(0, 0)));
-		this.mainPic.setScale(0.55);
-		this.accLayer.addChild(this.mainPic);
-
-		this.sp1 = new cc.Sprite("res/hpic/pw3.png");
-		this.sp1.setPosition(cc.pAdd(cc.visibleRect.center, cc.p(-34, -110)));
-//		this.sp1.setVisible(false);
-		this.sp1.opacity = 0;
-		this.sp1.setScale(0.55);
-		this.accLayer.addChild(this.sp1);
+		if(cc.container.clientWidth < cc.container.clientHeight){
+//		if (cc.size.width < cc.size.height){
+			this.mainPic = new cc.Sprite("res/hpic/p3.png");
+			var mainPicSize = this.mainPic.getContentSize();
+			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
+			var dx = cc.winSize.width/mainPicSize.width;
+			cc.log("dx = ", dx);
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,97));
+			this.mainPic.setScale(dx, 0.15);
+			this.accLayer.addChild(this.mainPic);
+	
+			this.sp1 = new cc.Sprite("res/hpic/pw3.png");
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,80));
+	//		this.sp1.setVisible(false);
+			this.sp1.opacity = 0;
+			this.sp1.setScale(0.5, 0.12);
+			this.accLayer.addChild(this.sp1);
+		}else{
+			this.mainPic = new cc.Sprite("res/wpic/p3.png");
+			var mainPicSize = this.mainPic.getContentSize();
+			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
+			var dx = cc.winSize.height/mainPicSize.height;
+			cc.log("dx = ", dx);
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,75));
+			this.mainPic.setScale(0.83, dx);
+			this.accLayer.addChild(this.mainPic);
+	
+			this.sp1 = new cc.Sprite("res/wpic/pw3.png");
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,80));
+	//		this.sp1.setVisible(false);
+			this.sp1.opacity = 0;
+			this.sp1.setScale(0.95, 0.15);
+			this.accLayer.addChild(this.sp1);
+		}
 	},
 	accelEvent: function (acc, event) {
 		if (this.visible) {
@@ -440,17 +516,40 @@ var Layer4 = cc.LayerColor.extend({
 		this.accLayer.y = 0;
 		this.addChild(this.accLayer);
 
-		this.mainPic = new cc.Sprite("res/hpic/p4.png");
-		this.mainPic.setPosition(cc.pAdd(cc.visibleRect.center, cc.p(0, 0)));
-		this.mainPic.setScale(0.55);
-		this.accLayer.addChild(this.mainPic);
-
-		this.sp1 = new cc.Sprite("res/hpic/pw4.png");
-		this.sp1.setPosition(cc.pAdd(cc.visibleRect.center, cc.p(-34, 100)));
-//		this.sp1.setVisible(false);
-		this.sp1.opacity = 0;
-		this.sp1.setScale(0.55);
-		this.accLayer.addChild(this.sp1);
+		if(cc.container.clientWidth < cc.container.clientHeight){
+//		if (cc.size.width < cc.size.height){
+			this.mainPic = new cc.Sprite("res/hpic/p4.png");
+			var mainPicSize = this.mainPic.getContentSize();
+			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
+			var dx = cc.winSize.width/mainPicSize.width;
+			cc.log("dx = ", dx);
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,97));
+			this.mainPic.setScale(dx, 0.15);
+			this.accLayer.addChild(this.mainPic);
+	
+			this.sp1 = new cc.Sprite("res/hpic/pw4.png");
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,80));
+	//		this.sp1.setVisible(false);
+			this.sp1.opacity = 0;
+			this.sp1.setScale(0.5, 0.12);
+			this.accLayer.addChild(this.sp1);
+		}else{
+			this.mainPic = new cc.Sprite("res/wpic/p4.png");
+			var mainPicSize = this.mainPic.getContentSize();
+			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
+			var dx = cc.winSize.height/mainPicSize.height;
+			cc.log("dx = ", dx);
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,75));
+			this.mainPic.setScale(0.83, dx);
+			this.accLayer.addChild(this.mainPic);
+	
+			this.sp1 = new cc.Sprite("res/wpic/pw4.png");
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,85));
+	//		this.sp1.setVisible(false);
+			this.sp1.opacity = 0;
+			this.sp1.setScale(0.95, 0.15);
+			this.accLayer.addChild(this.sp1);
+		}
 	},
 	accelEvent: function (acc, event) {
 		if (this.visible) {
@@ -489,7 +588,7 @@ var Layer4 = cc.LayerColor.extend({
 	}
 });
 
-var Layer5 = cc.Layer.extend({
+var Layer5 = cc.LayerColor.extend({
 	ctor: function () {
 		this._super();
 		this.initUI();
@@ -500,6 +599,9 @@ var Layer5 = cc.Layer.extend({
 	},
 	initUI: function () {
 		canChangePage = false;
+		this.setColor(cc.color(254, 254, 254, 0));
+		this.setContentSize(cc.winSize);
+		
 		this.accLayer = new cc.Layer();
 		this.accLayer.anchorX = 0;
 		this.accLayer.anchorY = 0;
@@ -507,17 +609,40 @@ var Layer5 = cc.Layer.extend({
 		this.accLayer.y = 0;
 		this.addChild(this.accLayer);
 
-		this.mainPic = new cc.Sprite("res/hpic/p5.png");
-		this.mainPic.setPosition(cc.pAdd(cc.visibleRect.center, cc.p(0, 0)));
-		this.mainPic.setScale(0.55);
-		this.accLayer.addChild(this.mainPic);
+		if(cc.container.clientWidth < cc.container.clientHeight){
+//		if (cc.size.width < cc.size.height){
+			this.mainPic = new cc.Sprite("res/hpic/p5.png");
+			var mainPicSize = this.mainPic.getContentSize();
+			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
+			var dx = cc.winSize.width/mainPicSize.width;
+			cc.log("dx = ", dx);
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,97));
+			this.mainPic.setScale(dx, 0.15);
+			this.accLayer.addChild(this.mainPic);
+	
+			this.sp1 = new cc.Sprite("res/hpic/pw5.png");
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,80));
+	//		this.sp1.setVisible(false);
+			this.sp1.opacity = 0;
+			this.sp1.setScale(0.5, 0.12);
+			this.accLayer.addChild(this.sp1);
+		}else{
+			this.mainPic = new cc.Sprite("res/wpic/p5.png");
+			var mainPicSize = this.mainPic.getContentSize();
+			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
+			var dx = cc.winSize.height/mainPicSize.height;
+			cc.log("dx = ", dx);
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,75));
+			this.mainPic.setScale(0.83, dx);
+			this.accLayer.addChild(this.mainPic);
 
-		this.sp1 = new cc.Sprite("res/hpic/pw5.png");
-		this.sp1.setPosition(cc.pAdd(cc.visibleRect.center, cc.p(-34, -100)));
-//		this.sp1.setVisible(false);
-		this.sp1.opacity = 0;
-		this.sp1.setScale(0.55);
-		this.accLayer.addChild(this.sp1);
+			this.sp1 = new cc.Sprite("res/wpic/pw5.png");
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,80));
+			//		this.sp1.setVisible(false);
+			this.sp1.opacity = 0;
+			this.sp1.setScale(0.95, 0.15);
+			this.accLayer.addChild(this.sp1);
+		}
 	},
 	accelEvent: function (acc, event) {
 		if (this.visible) {
@@ -556,7 +681,7 @@ var Layer5 = cc.Layer.extend({
 	}
 });
 
-var Layer6 = cc.Layer.extend({
+var Layer6 = cc.LayerColor.extend({
 	ctor: function () {
 		this._super();
 		this.initUI();
@@ -567,6 +692,9 @@ var Layer6 = cc.Layer.extend({
 	},
 	initUI: function () {
 		canChangePage = false;
+		this.setColor(cc.color(94, 0, 23, 0));
+		this.setContentSize(cc.winSize);
+		
 		this.accLayer = new cc.Layer();
 		this.accLayer.anchorX = 0;
 		this.accLayer.anchorY = 0;
@@ -574,17 +702,40 @@ var Layer6 = cc.Layer.extend({
 		this.accLayer.y = 0;
 		this.addChild(this.accLayer);
 
-		this.mainPic = new cc.Sprite("res/hpic/p6.png");
-		this.mainPic.setPosition(cc.pAdd(cc.visibleRect.center, cc.p(0, 0)));
-		this.mainPic.setScale(0.55);
-		this.accLayer.addChild(this.mainPic);
+		if(cc.container.clientWidth < cc.container.clientHeight){
+//		if (cc.size.width < cc.size.height){
+			this.mainPic = new cc.Sprite("res/hpic/p6.png");
+			var mainPicSize = this.mainPic.getContentSize();
+			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
+			var dx = cc.winSize.width/mainPicSize.width;
+			cc.log("dx = ", dx);
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,97));
+			this.mainPic.setScale(dx, 0.15);
+			this.accLayer.addChild(this.mainPic);
+	
+			this.sp1 = new cc.Sprite("res/hpic/pw6.png");
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,80));
+	//		this.sp1.setVisible(false);
+			this.sp1.opacity = 0;
+			this.sp1.setScale(0.5, 0.12);
+			this.accLayer.addChild(this.sp1);
+		}else{
+			this.mainPic = new cc.Sprite("res/wpic/p6.png");
+			var mainPicSize = this.mainPic.getContentSize();
+			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
+			var dx = cc.winSize.height/mainPicSize.height;
+			cc.log("dx = ", dx);
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,76));
+			this.mainPic.setScale(0.83, dx);
+			this.accLayer.addChild(this.mainPic);
 
-		this.sp1 = new cc.Sprite("res/hpic/pw6.png");
-		this.sp1.setPosition(cc.pAdd(cc.visibleRect.center, cc.p(-34, 103)));
-//		this.sp1.setVisible(false);
-		this.sp1.opacity = 0;
-		this.sp1.setScale(0.55);
-		this.accLayer.addChild(this.sp1);
+			this.sp1 = new cc.Sprite("res/wpic/pw6.png");
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,80));
+//			this.sp1.setVisible(false);
+			this.sp1.opacity = 0;
+			this.sp1.setScale(0.95, 0.15);
+			this.accLayer.addChild(this.sp1);
+		}
 	},
 	accelEvent: function (acc, event) {
 		if (this.visible) {
@@ -623,7 +774,7 @@ var Layer6 = cc.Layer.extend({
 	}
 });
 
-var Layer7 = cc.Layer.extend({
+var Layer7 = cc.LayerColor.extend({
 	ctor: function () {
 		this._super();
 		this.initUI();
@@ -634,6 +785,9 @@ var Layer7 = cc.Layer.extend({
 	},
 	initUI: function () {
 		canChangePage = false;
+		this.setColor(cc.color(173, 234, 123, 0));
+		this.setContentSize(cc.winSize);
+		
 		this.accLayer = new cc.Layer();
 		this.accLayer.anchorX = 0;
 		this.accLayer.anchorY = 0;
@@ -641,17 +795,40 @@ var Layer7 = cc.Layer.extend({
 		this.accLayer.y = 0;
 		this.addChild(this.accLayer);
 
-		this.mainPic = new cc.Sprite("res/hpic/p7.png");
-		this.mainPic.setPosition(cc.pAdd(cc.visibleRect.center, cc.p(0, 0)));
-		this.mainPic.setScale(0.55);
-		this.accLayer.addChild(this.mainPic);
+		if(cc.container.clientWidth < cc.container.clientHeight){
+//		if (cc.size.width < cc.size.height){
+			this.mainPic = new cc.Sprite("res/hpic/p7.png");
+			var mainPicSize = this.mainPic.getContentSize();
+			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
+			var dx = cc.winSize.width/mainPicSize.width;
+			cc.log("dx = ", dx);
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,97));
+			this.mainPic.setScale(dx, 0.15);
+			this.accLayer.addChild(this.mainPic);
+	
+			this.sp1 = new cc.Sprite("res/hpic/pw7.png");
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,80));
+	//		this.sp1.setVisible(false);
+			this.sp1.opacity = 0;
+			this.sp1.setScale(0.5, 0.12);
+			this.accLayer.addChild(this.sp1);
+		}else{
+			this.mainPic = new cc.Sprite("res/wpic/p7.png");
+			var mainPicSize = this.mainPic.getContentSize();
+			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
+			var dx = cc.winSize.height/mainPicSize.height;
+			cc.log("dx = ", dx);
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,75));
+			this.mainPic.setScale(0.83, dx);
+			this.accLayer.addChild(this.mainPic);
 
-		this.sp1 = new cc.Sprite("res/hpic/pw7.png");
-		this.sp1.setPosition(cc.pAdd(cc.visibleRect.center, cc.p(34, -98)));
-//		this.sp1.setVisible(false);
-		this.sp1.opacity = 0;
-		this.sp1.setScale(0.55);
-		this.accLayer.addChild(this.sp1);
+			this.sp1 = new cc.Sprite("res/wpic/pw7.png");
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,80));
+//			this.sp1.setVisible(false);
+			this.sp1.opacity = 0;
+			this.sp1.setScale(0.95, 0.15);
+			this.accLayer.addChild(this.sp1);
+		}
 	},
 	accelEvent: function (acc, event) {
 		if (this.visible) {
@@ -690,7 +867,7 @@ var Layer7 = cc.Layer.extend({
 	}
 });
 
-var Layer8 = cc.Layer.extend({
+var Layer8 = cc.LayerColor.extend({
 	ctor: function () {
 		this._super();
 		this.initUI();
@@ -701,6 +878,9 @@ var Layer8 = cc.Layer.extend({
 	},
 	initUI: function () {
 		canChangePage = false;
+		this.setColor(cc.color(0, 161, 233, 0));
+		this.setContentSize(cc.winSize);
+		
 		this.accLayer = new cc.Layer();
 		this.accLayer.anchorX = 0;
 		this.accLayer.anchorY = 0;
@@ -708,17 +888,40 @@ var Layer8 = cc.Layer.extend({
 		this.accLayer.y = 0;
 		this.addChild(this.accLayer);
 
-		this.mainPic = new cc.Sprite("res/hpic/p8.png");
-		this.mainPic.setPosition(cc.pAdd(cc.visibleRect.center, cc.p(0, 0)));
-		this.mainPic.setScale(0.55);
-		this.accLayer.addChild(this.mainPic);
+		if(cc.container.clientWidth < cc.container.clientHeight){
+//		if (cc.size.width < cc.size.height){
+			this.mainPic = new cc.Sprite("res/hpic/p8.png");
+			var mainPicSize = this.mainPic.getContentSize();
+			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
+			var dx = cc.winSize.width/mainPicSize.width;
+			cc.log("dx = ", dx);
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,97));
+			this.mainPic.setScale(dx, 0.15);
+			this.accLayer.addChild(this.mainPic);
+	
+			this.sp1 = new cc.Sprite("res/hpic/pw8.png");
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,80));
+	//		this.sp1.setVisible(false);
+			this.sp1.opacity = 0;
+			this.sp1.setScale(0.5, 0.12);
+			this.accLayer.addChild(this.sp1);
+		}else{
+			this.mainPic = new cc.Sprite("res/wpic/p8.png");
+			var mainPicSize = this.mainPic.getContentSize();
+			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
+			var dx = cc.winSize.height/mainPicSize.height;
+			cc.log("dx = ", dx);
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,75));
+			this.mainPic.setScale(0.83, dx);
+			this.accLayer.addChild(this.mainPic);
 
-		this.sp1 = new cc.Sprite("res/hpic/pw8.png");
-		this.sp1.setPosition(cc.pAdd(cc.visibleRect.center, cc.p(-34, -105)));
-//		this.sp1.setVisible(false);
-		this.sp1.opacity = 0;
-		this.sp1.setScale(0.55);
-		this.accLayer.addChild(this.sp1);
+			this.sp1 = new cc.Sprite("res/wpic/pw8.png");
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,80));
+//			this.sp1.setVisible(false);
+			this.sp1.opacity = 0;
+			this.sp1.setScale(0.95, 0.15);
+			this.accLayer.addChild(this.sp1);
+		}
 	},
 	accelEvent: function (acc, event) {
 		if (this.visible) {
@@ -757,7 +960,7 @@ var Layer8 = cc.Layer.extend({
 	}
 });
 
-var Layer9 = cc.Layer.extend({
+var Layer9 = cc.LayerColor.extend({
 	ctor: function () {
 		this._super();
 		this.initUI();
@@ -768,6 +971,9 @@ var Layer9 = cc.Layer.extend({
 	},
 	initUI: function () {
 		canChangePage = false;
+		this.setColor(cc.color(255, 244, 92, 0));
+		this.setContentSize(cc.winSize);
+		
 		this.accLayer = new cc.Layer();
 		this.accLayer.anchorX = 0;
 		this.accLayer.anchorY = 0;
@@ -775,17 +981,40 @@ var Layer9 = cc.Layer.extend({
 		this.accLayer.y = 0;
 		this.addChild(this.accLayer);
 
-		this.mainPic = new cc.Sprite("res/hpic/p9.png");
-		this.mainPic.setPosition(cc.pAdd(cc.visibleRect.center, cc.p(0, 0)));
-		this.mainPic.setScale(0.55);
-		this.accLayer.addChild(this.mainPic);
+		if(cc.container.clientWidth < cc.container.clientHeight){
+//		if (cc.size.width < cc.size.height){
+			this.mainPic = new cc.Sprite("res/hpic/p9.png");
+			var mainPicSize = this.mainPic.getContentSize();
+			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
+			var dx = cc.winSize.width/mainPicSize.width;
+			cc.log("dx = ", dx);
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,97));
+			this.mainPic.setScale(dx, 0.15);
+			this.accLayer.addChild(this.mainPic);
+	
+			this.sp1 = new cc.Sprite("res/hpic/pw9.png");
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,80));
+	//		this.sp1.setVisible(false);
+			this.sp1.opacity = 0;
+			this.sp1.setScale(0.5, 0.12);
+			this.accLayer.addChild(this.sp1);
+		}else{
+			this.mainPic = new cc.Sprite("res/wpic/p9.png");
+			var mainPicSize = this.mainPic.getContentSize();
+			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
+			var dx = cc.winSize.height/mainPicSize.height;
+			cc.log("dx = ", dx);
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,75));
+			this.mainPic.setScale(0.83, dx);
+			this.accLayer.addChild(this.mainPic);
 
-		this.sp1 = new cc.Sprite("res/hpic/pw9.png");
-		this.sp1.setPosition(cc.pAdd(cc.visibleRect.center, cc.p(34, 87)));
-//		this.sp1.setVisible(false);
-		this.sp1.opacity = 0;
-		this.sp1.setScale(0.55);
-		this.accLayer.addChild(this.sp1);
+			this.sp1 = new cc.Sprite("res/wpic/pw9.png");
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,80));
+//			this.sp1.setVisible(false);
+			this.sp1.opacity = 0;
+			this.sp1.setScale(0.95, 0.15);
+			this.accLayer.addChild(this.sp1);
+		}
 	},
 	accelEvent: function (acc, event) {
 		if (this.visible) {
@@ -824,7 +1053,7 @@ var Layer9 = cc.Layer.extend({
 	}
 });
 
-var Layer10 = cc.Layer.extend({
+var Layer10 = cc.LayerColor.extend({
 	ctor: function () {
 		this._super();
 		this.initUI();
@@ -835,6 +1064,9 @@ var Layer10 = cc.Layer.extend({
 	},
 	initUI: function () {
 		canChangePage = false;
+		this.setColor(cc.color(255, 250, 185, 0));
+		this.setContentSize(cc.winSize);
+		
 		this.accLayer = new cc.Layer();
 		this.accLayer.anchorX = 0;
 		this.accLayer.anchorY = 0;
@@ -842,17 +1074,40 @@ var Layer10 = cc.Layer.extend({
 		this.accLayer.y = 0;
 		this.addChild(this.accLayer);
 
-		this.mainPic = new cc.Sprite("res/hpic/p10.png");
-		this.mainPic.setPosition(cc.pAdd(cc.visibleRect.center, cc.p(0, 0)));
-		this.mainPic.setScale(0.55);
-		this.accLayer.addChild(this.mainPic);
+		if(cc.container.clientWidth < cc.container.clientHeight){
+//		if (cc.size.width < cc.size.height){
+			this.mainPic = new cc.Sprite("res/hpic/p10.png");
+			var mainPicSize = this.mainPic.getContentSize();
+			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
+			var dx = cc.winSize.width/mainPicSize.width;
+			cc.log("dx = ", dx);
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,97));
+			this.mainPic.setScale(dx, 0.15);
+			this.accLayer.addChild(this.mainPic);
+	
+			this.sp1 = new cc.Sprite("res/hpic/pw10.png");
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,80));
+	//		this.sp1.setVisible(false);
+			this.sp1.opacity = 0;
+			this.sp1.setScale(0.5, 0.12);
+			this.accLayer.addChild(this.sp1);
+		}else{
+			this.mainPic = new cc.Sprite("res/wpic/p10.png");
+			var mainPicSize = this.mainPic.getContentSize();
+			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
+			var dx = cc.winSize.height/mainPicSize.height;
+			cc.log("dx = ", dx);
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,75));
+			this.mainPic.setScale(0.83, dx);
+			this.accLayer.addChild(this.mainPic);
 
-		this.sp1 = new cc.Sprite("res/hpic/pw10.png");
-		this.sp1.setPosition(cc.pAdd(cc.visibleRect.center, cc.p(34, 96)));
-//		this.sp1.setVisible(false);
-		this.sp1.opacity = 0;
-		this.sp1.setScale(0.55);
-		this.accLayer.addChild(this.sp1);
+			this.sp1 = new cc.Sprite("res/wpic/pw10.png");
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,80));
+//			this.sp1.setVisible(false);
+			this.sp1.opacity = 0;
+			this.sp1.setScale(0.95, 0.15);
+			this.accLayer.addChild(this.sp1);
+		}
 	},
 	accelEvent: function (acc, event) {
 		if (this.visible) {
@@ -891,7 +1146,7 @@ var Layer10 = cc.Layer.extend({
 	}
 });
 
-var Layer11 = cc.Layer.extend({
+var Layer11 = cc.LayerColor.extend({
 	ctor: function () {
 		this._super();
 		this.initUI();
@@ -902,6 +1157,9 @@ var Layer11 = cc.Layer.extend({
 	},
 	initUI: function () {
 		canChangePage = false;
+		this.setColor(cc.color(255, 240, 0, 0));
+		this.setContentSize(cc.winSize);
+		
 		this.accLayer = new cc.Layer();
 		this.accLayer.anchorX = 0;
 		this.accLayer.anchorY = 0;
@@ -909,17 +1167,40 @@ var Layer11 = cc.Layer.extend({
 		this.accLayer.y = 0;
 		this.addChild(this.accLayer);
 
-		this.mainPic = new cc.Sprite("res/hpic/p11.png");
-		this.mainPic.setPosition(cc.pAdd(cc.visibleRect.center, cc.p(0, 0)));
-		this.mainPic.setScale(0.55);
-		this.accLayer.addChild(this.mainPic);
+		if(cc.container.clientWidth < cc.container.clientHeight){
+//		if (cc.size.width < cc.size.height){
+			this.mainPic = new cc.Sprite("res/hpic/p11.png");
+			var mainPicSize = this.mainPic.getContentSize();
+			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
+			var dx = cc.winSize.width/mainPicSize.width;
+			cc.log("dx = ", dx);
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,97));
+			this.mainPic.setScale(dx, 0.15);
+			this.accLayer.addChild(this.mainPic);
+	
+			this.sp1 = new cc.Sprite("res/hpic/pw11.png");
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,80));
+	//		this.sp1.setVisible(false);
+			this.sp1.opacity = 0;
+			this.sp1.setScale(0.5, 0.12);
+			this.accLayer.addChild(this.sp1);
+		}else{
+			this.mainPic = new cc.Sprite("res/wpic/p11.png");
+			var mainPicSize = this.mainPic.getContentSize();
+			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
+			var dx = cc.winSize.height/mainPicSize.height;
+			cc.log("dx = ", dx);
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,75));
+			this.mainPic.setScale(0.83, dx);
+			this.accLayer.addChild(this.mainPic);
 
-		this.sp1 = new cc.Sprite("res/hpic/pw11.png");
-		this.sp1.setPosition(cc.pAdd(cc.visibleRect.center, cc.p(0, -100)));
-//		this.sp1.setVisible(false);
-		this.sp1.opacity = 0;
-		this.sp1.setScale(0.55);
-		this.accLayer.addChild(this.sp1);
+			this.sp1 = new cc.Sprite("res/wpic/pw11.png");
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,80));
+//			this.sp1.setVisible(false);
+			this.sp1.opacity = 0;
+			this.sp1.setScale(0.95, 0.15);
+			this.accLayer.addChild(this.sp1);
+		}
 	},
 	accelEvent: function (acc, event) {
 		if (this.visible) {
@@ -958,7 +1239,7 @@ var Layer11 = cc.Layer.extend({
 	}
 });
 
-var Layer12 = cc.Layer.extend({
+var Layer12 = cc.LayerColor.extend({
 	ctor: function () {
 		this._super();
 		this.initUI();
@@ -969,6 +1250,8 @@ var Layer12 = cc.Layer.extend({
 	},
 	initUI: function () {
 		canChangePage = false;
+		this.setColor(cc.color(78, 193, 231, 0));
+		this.setContentSize(cc.winSize);
 		this.accLayer = new cc.Layer();
 		this.accLayer.anchorX = 0;
 		this.accLayer.anchorY = 0;
@@ -976,17 +1259,40 @@ var Layer12 = cc.Layer.extend({
 		this.accLayer.y = 0;
 		this.addChild(this.accLayer);
 
-		this.mainPic = new cc.Sprite("res/hpic/p12.png");
-		this.mainPic.setPosition(cc.pAdd(cc.visibleRect.center, cc.p(0, 0)));
-		this.mainPic.setScale(0.55);
-		this.accLayer.addChild(this.mainPic);
+		if(cc.container.clientWidth < cc.container.clientHeight){
+//		if (cc.size.width < cc.size.height){
+			this.mainPic = new cc.Sprite("res/hpic/p12.png");
+			var mainPicSize = this.mainPic.getContentSize();
+			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
+			var dx = cc.winSize.width/mainPicSize.width;
+			cc.log("dx = ", dx);
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,97));
+			this.mainPic.setScale(dx, 0.15);
+			this.accLayer.addChild(this.mainPic);
+	
+			this.sp1 = new cc.Sprite("res/hpic/pw12.png");
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,80));
+	//		this.sp1.setVisible(false);
+			this.sp1.opacity = 0;
+			this.sp1.setScale(0.5, 0.12);
+			this.accLayer.addChild(this.sp1);
+		}else{
+			this.mainPic = new cc.Sprite("res/wpic/p12.png");
+			var mainPicSize = this.mainPic.getContentSize();
+			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
+			var dx = cc.winSize.height/mainPicSize.height;
+			cc.log("dx = ", dx);
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,75));
+			this.mainPic.setScale(0.83, dx);
+			this.accLayer.addChild(this.mainPic);
 
-		this.sp1 = new cc.Sprite("res/hpic/pw12.png");
-		this.sp1.setPosition(cc.pAdd(cc.visibleRect.center, cc.p(0, -100)));
-//		this.sp1.setVisible(false);
-		this.sp1.opacity = 0;
-		this.sp1.setScale(0.55);
-		this.accLayer.addChild(this.sp1);
+			this.sp1 = new cc.Sprite("res/wpic/pw12.png");
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,80));
+//			this.sp1.setVisible(false);
+			this.sp1.opacity = 0;
+			this.sp1.setScale(0.95, 0.15);
+			this.accLayer.addChild(this.sp1);
+		}
 	},
 	accelEvent: function (acc, event) {
 		if (this.visible) {

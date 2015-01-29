@@ -101,7 +101,7 @@ Loading = cc.Scene.extend(/** @lends cc.LoaderScene# */{
 			this._logo = cc.Sprite.createWithTexture(this._texture2d);
 		}
 		this._logo.setPosition(centerPos);
-		this._logo.setScale(0.5);
+		this._logo.setScale(0.5, 0.2);
 		this._bgLayer.addChild(this._logo, 10);
 
 		//load resources
@@ -154,6 +154,7 @@ Loading = cc.Scene.extend(/** @lends cc.LoaderScene# */{
 	},
 
 	_updatePercent: function () {
+	
 //		cc.LoaderScene
 		var percent = 100 ;//cc.loader.getPercentage();
 		var tmpStr = "Loading... " + percent + "%";
