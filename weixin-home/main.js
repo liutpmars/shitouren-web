@@ -70,8 +70,8 @@ cc.game.onStart = function(){
     cc.view.setDesignResolutionSize(w, h, mode);
     cc.log("容器大小。。",cc.container.clientWidth,cc.container.clientHeight);
     
-    var gm = document.getElementById("gameCanvas");
-    cc.log("cong html zhonglai d ",gm.width, gm.height);
+//    var gm = document.getElementById("gameCanvas");
+//    cc.log("cong html zhonglai d ",gm.width, gm.height);
     
 //    cc.container.set
     

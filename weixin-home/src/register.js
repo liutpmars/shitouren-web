@@ -92,7 +92,7 @@ var MainScene = cc.Scene.extend({
             }
             this.animLayer.addChild(scene, this.sceneList.length - i);
         }
-        var layerIn = cc.sequence(cc.moveTo(1, cc.p(0,0)), cc.callFunc(function () {
+        var layerIn = cc.sequence(cc.moveTo(0.7, cc.p(0,0)), cc.callFunc(function () {
         	this.sceneList[0].appear(true);
         }, this));
         
@@ -195,12 +195,12 @@ var MainScene = cc.Scene.extend({
         };
         if (scene) {
         	var h = next ? cc.visibleRect.height : -cc.visibleRect.height;
-    		var layerOut = cc.sequence(cc.moveTo(1, cc.p(0, h)), cc.callFunc(function () {
+        	var layerOut = cc.sequence(cc.moveTo(0.7, cc.p(0, h)), cc.callFunc(function () {
 //        			scene.disappear(nextPage, this, next);
     			this.sceneList[index].appear(next);
     		}, this));        		
         	
-        	var layerIn = cc.sequence(cc.moveTo(1, cc.p(0,0)), cc.callFunc(function () {
+        	var layerIn = cc.sequence(cc.moveTo(0.7, cc.p(0,0)), cc.callFunc(function () {
         		scene.disappear(nextPage, this, next);
         	}, this));
         	
@@ -243,30 +243,30 @@ var Layer1 = cc.LayerColor.extend({
 	        this.mainPic = new cc.Sprite("res/hpic/p1.png");
 	        var mainPicSize = this.mainPic.getContentSize();
 	        var dx = cc.winSize.width/mainPicSize.width;
-	        var dy = 150/mainPicSize.height;
+	        var dy = cc.winSize.height/mainPicSize.height;
 	        cc.log("dx = ", dx, "dy = ", dy);
-	        this.mainPic.setPosition(cc.p(cc.winSize.width/2, 97));
-	        this.mainPic.setScale(dx, 0.15);
+	        this.mainPic.setPosition(cc.p(cc.winSize.width/2, cc.winSize.height/2 ));
+	        this.mainPic.setScale(dx, dy);
 	        this.accLayer.addChild(this.mainPic);
 	        
 	        this.sp1 = new cc.Sprite("res/hpic/pw1.png");
-	        this.sp1.setPosition(cc.p(cc.winSize.width/2, 80));
+	        this.sp1.setPosition(cc.p(cc.winSize.width/2, cc.winSize.height/2 + 10));
 	        this.sp1.opacity = 0;
-	        this.sp1.setScale(0.9, 0.15);
+	        this.sp1.setScale(dx, dy);
 	        this.accLayer.addChild(this.sp1);
 	    }else{
 	    	this.mainPic = new cc.Sprite("res/wpic/p1.png");
 	    	var mainPicSize = this.mainPic.getContentSize();
 	    	var dx = cc.winSize.height/mainPicSize.height;
 	    	cc.log("dx = ", dx);
-	    	this.mainPic.setPosition(cc.p(cc.winSize.width/2, 75));
+	    	this.mainPic.setPosition(cc.p(cc.winSize.width/2, cc.winSize.height/2));
 	    	this.mainPic.setScale(0.83, dx);
 	    	this.accLayer.addChild(this.mainPic);
 
 	    	this.sp1 = new cc.Sprite("res/wpic/pw1.png");
-	    	this.sp1.setPosition(cc.p(cc.winSize.width/2, 85));
+	    	this.sp1.setPosition(cc.p(cc.winSize.width/2, cc.winSize.height/2 + 10));
 	    	this.sp1.opacity = 0;
-	    	this.sp1.setScale(0.9, 0.15);
+	    	this.sp1.setScale(0.9, dx);
 	    	this.accLayer.addChild(this.sp1);
 	    }
     },
@@ -333,17 +333,18 @@ var Layer2 = cc.LayerColor.extend({
 			var mainPicSize = this.mainPic.getContentSize();
 			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
 			var dx = cc.winSize.width/mainPicSize.width;
+			var dy = cc.winSize.height/mainPicSize.height;
 			cc.log("dx = ", dx);
-			this.mainPic.setPosition(cc.p(cc.winSize.width/2,97));
-			this.mainPic.setScale(dx, 0.15);
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2));
+			this.mainPic.setScale(dx, dy);
 			
 			this.accLayer.addChild(this.mainPic);
 	
 			this.sp1 = new cc.Sprite("res/hpic/pw2.png");
-			this.sp1.setPosition(cc.p(cc.winSize.width/2,90));
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2+10));
 	//		this.sp1.setVisible(false);
 			this.sp1.opacity = 0;
-			this.sp1.setScale(0.9,0.15);
+			this.sp1.setScale(dx,dy);
 			this.accLayer.addChild(this.sp1);
 		}else{
 			this.mainPic = new cc.Sprite("res/wpic/p2.png");
@@ -351,16 +352,16 @@ var Layer2 = cc.LayerColor.extend({
 			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
 			var dx = cc.winSize.height/mainPicSize.height;
 			cc.log("dx = ", dx);
-			this.mainPic.setPosition(cc.p(cc.winSize.width/2,75));
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2));
 			this.mainPic.setScale(0.83, dx);
 
 			this.accLayer.addChild(this.mainPic);
 
 			this.sp1 = new cc.Sprite("res/wpic/pw2.png");
-			this.sp1.setPosition(cc.p(cc.winSize.width/2,90));
+			this.sp1.setPosition(cc.p(cc.winSize.width/2, cc.winSize.height/2 + 10));
 			//		this.sp1.setVisible(false);
 			this.sp1.opacity = 0;
-			this.sp1.setScale(0.9,0.15);
+			this.sp1.setScale(0.9,dx);
 			this.accLayer.addChild(this.sp1);
 		}
 	},
@@ -428,16 +429,17 @@ var Layer3 = cc.LayerColor.extend({
 			var mainPicSize = this.mainPic.getContentSize();
 			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
 			var dx = cc.winSize.width/mainPicSize.width;
+			var dy = cc.winSize.height/mainPicSize.height;
 			cc.log("dx = ", dx);
-			this.mainPic.setPosition(cc.p(cc.winSize.width/2,97));
-			this.mainPic.setScale(dx, 0.15);
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2));
+			this.mainPic.setScale(dx, dy);
 			this.accLayer.addChild(this.mainPic);
 	
 			this.sp1 = new cc.Sprite("res/hpic/pw3.png");
-			this.sp1.setPosition(cc.p(cc.winSize.width/2,80));
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2+10));
 	//		this.sp1.setVisible(false);
 			this.sp1.opacity = 0;
-			this.sp1.setScale(0.5, 0.12);
+			this.sp1.setScale(dx, dy);
 			this.accLayer.addChild(this.sp1);
 		}else{
 			this.mainPic = new cc.Sprite("res/wpic/p3.png");
@@ -445,15 +447,15 @@ var Layer3 = cc.LayerColor.extend({
 			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
 			var dx = cc.winSize.height/mainPicSize.height;
 			cc.log("dx = ", dx);
-			this.mainPic.setPosition(cc.p(cc.winSize.width/2,75));
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2));
 			this.mainPic.setScale(0.83, dx);
 			this.accLayer.addChild(this.mainPic);
 	
 			this.sp1 = new cc.Sprite("res/wpic/pw3.png");
-			this.sp1.setPosition(cc.p(cc.winSize.width/2,80));
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2 + 10));
 	//		this.sp1.setVisible(false);
 			this.sp1.opacity = 0;
-			this.sp1.setScale(0.95, 0.15);
+			this.sp1.setScale(0.9, dx);
 			this.accLayer.addChild(this.sp1);
 		}
 	},
@@ -522,16 +524,17 @@ var Layer4 = cc.LayerColor.extend({
 			var mainPicSize = this.mainPic.getContentSize();
 			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
 			var dx = cc.winSize.width/mainPicSize.width;
+			var dy = cc.winSize.height/mainPicSize.height;
 			cc.log("dx = ", dx);
-			this.mainPic.setPosition(cc.p(cc.winSize.width/2,97));
-			this.mainPic.setScale(dx, 0.15);
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2));
+			this.mainPic.setScale(dx, dy);
 			this.accLayer.addChild(this.mainPic);
 	
 			this.sp1 = new cc.Sprite("res/hpic/pw4.png");
-			this.sp1.setPosition(cc.p(cc.winSize.width/2,80));
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2+10));
 	//		this.sp1.setVisible(false);
 			this.sp1.opacity = 0;
-			this.sp1.setScale(0.5, 0.12);
+			this.sp1.setScale(dx, dy);
 			this.accLayer.addChild(this.sp1);
 		}else{
 			this.mainPic = new cc.Sprite("res/wpic/p4.png");
@@ -539,15 +542,15 @@ var Layer4 = cc.LayerColor.extend({
 			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
 			var dx = cc.winSize.height/mainPicSize.height;
 			cc.log("dx = ", dx);
-			this.mainPic.setPosition(cc.p(cc.winSize.width/2,75));
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2));
 			this.mainPic.setScale(0.83, dx);
 			this.accLayer.addChild(this.mainPic);
 	
 			this.sp1 = new cc.Sprite("res/wpic/pw4.png");
-			this.sp1.setPosition(cc.p(cc.winSize.width/2,85));
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2 + 10));
 	//		this.sp1.setVisible(false);
 			this.sp1.opacity = 0;
-			this.sp1.setScale(0.95, 0.15);
+			this.sp1.setScale(0.95, dx);
 			this.accLayer.addChild(this.sp1);
 		}
 	},
@@ -615,16 +618,17 @@ var Layer5 = cc.LayerColor.extend({
 			var mainPicSize = this.mainPic.getContentSize();
 			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
 			var dx = cc.winSize.width/mainPicSize.width;
+			var dy = cc.winSize.height/mainPicSize.height;
 			cc.log("dx = ", dx);
-			this.mainPic.setPosition(cc.p(cc.winSize.width/2,97));
-			this.mainPic.setScale(dx, 0.15);
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2));
+			this.mainPic.setScale(dx, dy);
 			this.accLayer.addChild(this.mainPic);
 	
 			this.sp1 = new cc.Sprite("res/hpic/pw5.png");
-			this.sp1.setPosition(cc.p(cc.winSize.width/2,80));
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2+10));
 	//		this.sp1.setVisible(false);
 			this.sp1.opacity = 0;
-			this.sp1.setScale(0.5, 0.12);
+			this.sp1.setScale(dx, dy);
 			this.accLayer.addChild(this.sp1);
 		}else{
 			this.mainPic = new cc.Sprite("res/wpic/p5.png");
@@ -632,15 +636,15 @@ var Layer5 = cc.LayerColor.extend({
 			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
 			var dx = cc.winSize.height/mainPicSize.height;
 			cc.log("dx = ", dx);
-			this.mainPic.setPosition(cc.p(cc.winSize.width/2,75));
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2));
 			this.mainPic.setScale(0.83, dx);
 			this.accLayer.addChild(this.mainPic);
 
 			this.sp1 = new cc.Sprite("res/wpic/pw5.png");
-			this.sp1.setPosition(cc.p(cc.winSize.width/2,80));
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2 + 10));
 			//		this.sp1.setVisible(false);
 			this.sp1.opacity = 0;
-			this.sp1.setScale(0.95, 0.15);
+			this.sp1.setScale(0.9, dx);
 			this.accLayer.addChild(this.sp1);
 		}
 	},
@@ -708,16 +712,17 @@ var Layer6 = cc.LayerColor.extend({
 			var mainPicSize = this.mainPic.getContentSize();
 			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
 			var dx = cc.winSize.width/mainPicSize.width;
+			var dy = cc.winSize.height/mainPicSize.height;
 			cc.log("dx = ", dx);
-			this.mainPic.setPosition(cc.p(cc.winSize.width/2,97));
-			this.mainPic.setScale(dx, 0.15);
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2));
+			this.mainPic.setScale(dx, dy);
 			this.accLayer.addChild(this.mainPic);
 	
 			this.sp1 = new cc.Sprite("res/hpic/pw6.png");
-			this.sp1.setPosition(cc.p(cc.winSize.width/2,80));
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2+10));
 	//		this.sp1.setVisible(false);
 			this.sp1.opacity = 0;
-			this.sp1.setScale(0.5, 0.12);
+			this.sp1.setScale(dx, dy);
 			this.accLayer.addChild(this.sp1);
 		}else{
 			this.mainPic = new cc.Sprite("res/wpic/p6.png");
@@ -725,15 +730,15 @@ var Layer6 = cc.LayerColor.extend({
 			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
 			var dx = cc.winSize.height/mainPicSize.height;
 			cc.log("dx = ", dx);
-			this.mainPic.setPosition(cc.p(cc.winSize.width/2,76));
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2));
 			this.mainPic.setScale(0.83, dx);
 			this.accLayer.addChild(this.mainPic);
 
 			this.sp1 = new cc.Sprite("res/wpic/pw6.png");
-			this.sp1.setPosition(cc.p(cc.winSize.width/2,80));
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2 + 10));
 //			this.sp1.setVisible(false);
 			this.sp1.opacity = 0;
-			this.sp1.setScale(0.95, 0.15);
+			this.sp1.setScale(0.9, dx);
 			this.accLayer.addChild(this.sp1);
 		}
 	},
@@ -801,16 +806,17 @@ var Layer7 = cc.LayerColor.extend({
 			var mainPicSize = this.mainPic.getContentSize();
 			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
 			var dx = cc.winSize.width/mainPicSize.width;
+			var dy = cc.winSize.height/mainPicSize.height;
 			cc.log("dx = ", dx);
-			this.mainPic.setPosition(cc.p(cc.winSize.width/2,97));
-			this.mainPic.setScale(dx, 0.15);
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2));
+			this.mainPic.setScale(dx, dy);
 			this.accLayer.addChild(this.mainPic);
 	
 			this.sp1 = new cc.Sprite("res/hpic/pw7.png");
-			this.sp1.setPosition(cc.p(cc.winSize.width/2,80));
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2));
 	//		this.sp1.setVisible(false);
 			this.sp1.opacity = 0;
-			this.sp1.setScale(0.5, 0.12);
+			this.sp1.setScale(dx, dy);
 			this.accLayer.addChild(this.sp1);
 		}else{
 			this.mainPic = new cc.Sprite("res/wpic/p7.png");
@@ -818,15 +824,15 @@ var Layer7 = cc.LayerColor.extend({
 			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
 			var dx = cc.winSize.height/mainPicSize.height;
 			cc.log("dx = ", dx);
-			this.mainPic.setPosition(cc.p(cc.winSize.width/2,75));
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2));
 			this.mainPic.setScale(0.83, dx);
 			this.accLayer.addChild(this.mainPic);
 
 			this.sp1 = new cc.Sprite("res/wpic/pw7.png");
-			this.sp1.setPosition(cc.p(cc.winSize.width/2,80));
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2+10));
 //			this.sp1.setVisible(false);
 			this.sp1.opacity = 0;
-			this.sp1.setScale(0.95, 0.15);
+			this.sp1.setScale(0.9, dx);
 			this.accLayer.addChild(this.sp1);
 		}
 	},
@@ -894,16 +900,17 @@ var Layer8 = cc.LayerColor.extend({
 			var mainPicSize = this.mainPic.getContentSize();
 			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
 			var dx = cc.winSize.width/mainPicSize.width;
+			var dy = cc.winSize.height/mainPicSize.height;
 			cc.log("dx = ", dx);
-			this.mainPic.setPosition(cc.p(cc.winSize.width/2,97));
-			this.mainPic.setScale(dx, 0.15);
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2));
+			this.mainPic.setScale(dx, dy);
 			this.accLayer.addChild(this.mainPic);
 	
 			this.sp1 = new cc.Sprite("res/hpic/pw8.png");
-			this.sp1.setPosition(cc.p(cc.winSize.width/2,80));
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2));
 	//		this.sp1.setVisible(false);
 			this.sp1.opacity = 0;
-			this.sp1.setScale(0.5, 0.12);
+			this.sp1.setScale(dx, dy);
 			this.accLayer.addChild(this.sp1);
 		}else{
 			this.mainPic = new cc.Sprite("res/wpic/p8.png");
@@ -911,15 +918,15 @@ var Layer8 = cc.LayerColor.extend({
 			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
 			var dx = cc.winSize.height/mainPicSize.height;
 			cc.log("dx = ", dx);
-			this.mainPic.setPosition(cc.p(cc.winSize.width/2,75));
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2));
 			this.mainPic.setScale(0.83, dx);
 			this.accLayer.addChild(this.mainPic);
 
 			this.sp1 = new cc.Sprite("res/wpic/pw8.png");
-			this.sp1.setPosition(cc.p(cc.winSize.width/2,80));
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2+10));
 //			this.sp1.setVisible(false);
 			this.sp1.opacity = 0;
-			this.sp1.setScale(0.95, 0.15);
+			this.sp1.setScale(0.9, dx);
 			this.accLayer.addChild(this.sp1);
 		}
 	},
@@ -987,16 +994,17 @@ var Layer9 = cc.LayerColor.extend({
 			var mainPicSize = this.mainPic.getContentSize();
 			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
 			var dx = cc.winSize.width/mainPicSize.width;
+			var dy = cc.winSize.height/mainPicSize.height;
 			cc.log("dx = ", dx);
-			this.mainPic.setPosition(cc.p(cc.winSize.width/2,97));
-			this.mainPic.setScale(dx, 0.15);
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2));
+			this.mainPic.setScale(dx, dy);
 			this.accLayer.addChild(this.mainPic);
 	
 			this.sp1 = new cc.Sprite("res/hpic/pw9.png");
-			this.sp1.setPosition(cc.p(cc.winSize.width/2,80));
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2));
 	//		this.sp1.setVisible(false);
 			this.sp1.opacity = 0;
-			this.sp1.setScale(0.5, 0.12);
+			this.sp1.setScale(dx, dy);
 			this.accLayer.addChild(this.sp1);
 		}else{
 			this.mainPic = new cc.Sprite("res/wpic/p9.png");
@@ -1004,15 +1012,15 @@ var Layer9 = cc.LayerColor.extend({
 			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
 			var dx = cc.winSize.height/mainPicSize.height;
 			cc.log("dx = ", dx);
-			this.mainPic.setPosition(cc.p(cc.winSize.width/2,75));
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2));
 			this.mainPic.setScale(0.83, dx);
 			this.accLayer.addChild(this.mainPic);
 
 			this.sp1 = new cc.Sprite("res/wpic/pw9.png");
-			this.sp1.setPosition(cc.p(cc.winSize.width/2,80));
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2+10));
 //			this.sp1.setVisible(false);
 			this.sp1.opacity = 0;
-			this.sp1.setScale(0.95, 0.15);
+			this.sp1.setScale(0.9, dx);
 			this.accLayer.addChild(this.sp1);
 		}
 	},
@@ -1080,16 +1088,17 @@ var Layer10 = cc.LayerColor.extend({
 			var mainPicSize = this.mainPic.getContentSize();
 			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
 			var dx = cc.winSize.width/mainPicSize.width;
+			var dy = cc.winSize.height/mainPicSize.height;
 			cc.log("dx = ", dx);
-			this.mainPic.setPosition(cc.p(cc.winSize.width/2,97));
-			this.mainPic.setScale(dx, 0.15);
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2));
+			this.mainPic.setScale(dx, dy);
 			this.accLayer.addChild(this.mainPic);
 	
 			this.sp1 = new cc.Sprite("res/hpic/pw10.png");
-			this.sp1.setPosition(cc.p(cc.winSize.width/2,80));
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2));
 	//		this.sp1.setVisible(false);
 			this.sp1.opacity = 0;
-			this.sp1.setScale(0.5, 0.12);
+			this.sp1.setScale(dx, dy);
 			this.accLayer.addChild(this.sp1);
 		}else{
 			this.mainPic = new cc.Sprite("res/wpic/p10.png");
@@ -1097,15 +1106,15 @@ var Layer10 = cc.LayerColor.extend({
 			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
 			var dx = cc.winSize.height/mainPicSize.height;
 			cc.log("dx = ", dx);
-			this.mainPic.setPosition(cc.p(cc.winSize.width/2,75));
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2));
 			this.mainPic.setScale(0.83, dx);
 			this.accLayer.addChild(this.mainPic);
 
 			this.sp1 = new cc.Sprite("res/wpic/pw10.png");
-			this.sp1.setPosition(cc.p(cc.winSize.width/2,80));
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2+10));
 //			this.sp1.setVisible(false);
 			this.sp1.opacity = 0;
-			this.sp1.setScale(0.95, 0.15);
+			this.sp1.setScale(0.9, dx);
 			this.accLayer.addChild(this.sp1);
 		}
 	},
@@ -1173,16 +1182,17 @@ var Layer11 = cc.LayerColor.extend({
 			var mainPicSize = this.mainPic.getContentSize();
 			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
 			var dx = cc.winSize.width/mainPicSize.width;
+			var dy = cc.winSize.height/mainPicSize.height;
 			cc.log("dx = ", dx);
-			this.mainPic.setPosition(cc.p(cc.winSize.width/2,97));
-			this.mainPic.setScale(dx, 0.15);
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2));
+			this.mainPic.setScale(dx, dy);
 			this.accLayer.addChild(this.mainPic);
 	
 			this.sp1 = new cc.Sprite("res/hpic/pw11.png");
-			this.sp1.setPosition(cc.p(cc.winSize.width/2,80));
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2));
 	//		this.sp1.setVisible(false);
 			this.sp1.opacity = 0;
-			this.sp1.setScale(0.5, 0.12);
+			this.sp1.setScale(dx, dy);
 			this.accLayer.addChild(this.sp1);
 		}else{
 			this.mainPic = new cc.Sprite("res/wpic/p11.png");
@@ -1190,15 +1200,15 @@ var Layer11 = cc.LayerColor.extend({
 			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
 			var dx = cc.winSize.height/mainPicSize.height;
 			cc.log("dx = ", dx);
-			this.mainPic.setPosition(cc.p(cc.winSize.width/2,75));
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2));
 			this.mainPic.setScale(0.83, dx);
 			this.accLayer.addChild(this.mainPic);
 
 			this.sp1 = new cc.Sprite("res/wpic/pw11.png");
-			this.sp1.setPosition(cc.p(cc.winSize.width/2,80));
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2+10));
 //			this.sp1.setVisible(false);
 			this.sp1.opacity = 0;
-			this.sp1.setScale(0.95, 0.15);
+			this.sp1.setScale(0.9, dx);
 			this.accLayer.addChild(this.sp1);
 		}
 	},
@@ -1265,16 +1275,17 @@ var Layer12 = cc.LayerColor.extend({
 			var mainPicSize = this.mainPic.getContentSize();
 			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
 			var dx = cc.winSize.width/mainPicSize.width;
+			var dy = cc.winSize.height/mainPicSize.height;
 			cc.log("dx = ", dx);
-			this.mainPic.setPosition(cc.p(cc.winSize.width/2,97));
-			this.mainPic.setScale(dx, 0.15);
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2));
+			this.mainPic.setScale(dx, dy);
 			this.accLayer.addChild(this.mainPic);
 	
 			this.sp1 = new cc.Sprite("res/hpic/pw12.png");
-			this.sp1.setPosition(cc.p(cc.winSize.width/2,80));
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2));
 	//		this.sp1.setVisible(false);
 			this.sp1.opacity = 0;
-			this.sp1.setScale(0.5, 0.12);
+			this.sp1.setScale(dx, dy);
 			this.accLayer.addChild(this.sp1);
 		}else{
 			this.mainPic = new cc.Sprite("res/wpic/p12.png");
@@ -1282,15 +1293,15 @@ var Layer12 = cc.LayerColor.extend({
 			cc.log("PIC w,h", mainPicSize.width, mainPicSize.height);
 			var dx = cc.winSize.height/mainPicSize.height;
 			cc.log("dx = ", dx);
-			this.mainPic.setPosition(cc.p(cc.winSize.width/2,75));
+			this.mainPic.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2));
 			this.mainPic.setScale(0.83, dx);
 			this.accLayer.addChild(this.mainPic);
 
 			this.sp1 = new cc.Sprite("res/wpic/pw12.png");
-			this.sp1.setPosition(cc.p(cc.winSize.width/2,80));
+			this.sp1.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2+10));
 //			this.sp1.setVisible(false);
 			this.sp1.opacity = 0;
-			this.sp1.setScale(0.95, 0.15);
+			this.sp1.setScale(0.9, dx);
 			this.accLayer.addChild(this.sp1);
 		}
 	},
