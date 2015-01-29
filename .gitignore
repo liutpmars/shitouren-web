@@ -2,8 +2,6 @@
 
 runtime/
 
-publish/
-
 .settings/
 
 .DS_Store

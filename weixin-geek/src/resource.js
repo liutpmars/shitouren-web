@@ -28,7 +28,17 @@ var res = {
     MapBG_png:"res/mapbg.png",
     MapTip_png:"res/mapTip.png",
     	
-    teskMainPic:"res/task/beihai/wumifan.png"
+    teskMainPic:"res/task/beihai/wumifan.png",
+    	
+    guilin1:"res/task/guilin/1.png",
+    guilin2:"res/task/guilin/2.png",
+    guilin3:"res/task/guilin/3.png",
+    guilin4:"res/task/guilin/4.png",
+    guilin5:"res/task/guilin/5.png",
+    guilin6:"res/task/guilin/6.png",
+    guilin7:"res/task/guilin/7.png",
+    guilin8:"res/task/guilin/8.png",
+    guilin9:"res/task/guilin/9.png",
 };
 
 var g_resources = [];

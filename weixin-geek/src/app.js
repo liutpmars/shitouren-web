@@ -144,7 +144,7 @@ var HelloWorldLayer = cc.Layer.extend({
 			
 			var bigcity = new cc.Sprite(mpItem.pic);
 			bigcity.setPosition(pos);
-			bigcity.setScale(0.5);
+//			bigcity.setScale(0.5);
 			this.bigMap.addChild(bigcity);
 			this.bigCityList.push(bigcity);
 			

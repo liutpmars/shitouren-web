@@ -311,7 +311,10 @@ var TeskList = cc.Layer.extend({
 		});
 		if (cc.winSize.width < cc.winSize.height){
 			name.setScale(1.5);
-			name.setPositionY(size.height/2 -140);
+			var mainPicRect = this.mainPic.getBoundingBox();
+			var mainPicScale = this.mainPic.getScaleY();
+			cc.log("zhutu......",mainPicScale, mainPicRect.width , mainPicRect.height);
+			name.setPositionY(mainPicRect.y - 385*mainPicScale -10);
 		}
 		this.addChild(name);
 		
