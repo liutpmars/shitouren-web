@@ -86,7 +86,12 @@ cc.game.onStart = function(){
     var preLoad = isNative ? cc.LoaderScene.preload : Loading.preload; 
 //    var preLoad = cc.LoaderScene.preload    //jsb
 //    cc.LoaderScene.preload(g_resources, function () {
-    preLoad(g_resources, function () {
+    
+    var curRes = g_resW;
+    if (cc.container.clientWidth < cc.container.clientHeight){
+    	curRes = g_resH;
+    }
+    preLoad(curRes, function () {
 //        cc.director.runScene(new HelloWorldScene());
 //    	cc.view.setDesignResolutionSize(w, h, mode);
 //    	cc.log("wwwwwwww",cc.container.width,cc.container.height);
