@@ -3,6 +3,7 @@ var TeskLayer = cc.Layer.extend({
 	ctor:function(param){
 		this._super();
 		this.param = param;
+		this.cityIndex = param.cityInfo.index;
 		this.currentIndex = 0;
 		this.SelCount = 0;
 		var size = cc.winSize;
@@ -78,12 +79,13 @@ var TeskLayer = cc.Layer.extend({
 					cc.log("确认提交。。。");
 					self.canChangePage = false;						
 					
-					var param = {"father" :self};
-					param.btnOk = function(){
+					var dlgParam = {"father" :self};
+					dlgParam.btnOk = function(){
 						
+//						cc.loader.getUrl(basePath, url)
 						var req = cc.loader.getXMLHttpRequest();
 						req.open("POST", "http://www.shitouren.com/api/geek/main/post");
-						req.setRequestHeader("Content-Type","text/plain;charset=UTF-8");
+						req.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8");
 						
 						req.onreadystatechange = function(){
 							if (req.readyState == 4 && (req.status >= 200 && req.status <= 207)) {  
@@ -97,42 +99,60 @@ var TeskLayer = cc.Layer.extend({
 								self.removeChild(self.dialog, true);
 								self.scoreLayer = new ScoreLayer({"score": json1.results.score, "compete":json1.results.compete});
 								self.scoreLayer.attr({
-									x:size.width/2,
-									y:size.height/2,
-									anchorX: 0.5,
-									anchorY: 0.5
+									x:0,
+									y:0,
+									anchorX: 0,
+									anchorY: 0
 								});	
 								self.setVisible(false);
 								mainScene.addChild(self.scoreLayer);
 							}  
 						};
 						
+						var postIndex = 1;
+						var postData = "postData={\"index\":" + postIndex + ",\"param\":{\"cityid\":" + self.cityIndex + ",\"taskids\":[";
+						
 						var taskID = []
+						var isF = true;
 						for (var k = 0; k < self.teskList.length; k++) {
 							var taskL = self.teskList[k];
 							var isSel = taskL.getMarkVisible();
 							if (isSel){
 								taskID.push(k);
+								if (isF){
+									postData = postData + k;
+								}
+								else{
+									postData = postData + "," + k; 
+								}
+								isF = false;
 							}
 						}
+//						postData = postData.substring(0, postData.length - 2);
+						postData = postData + "]}}";
 						
-						var postData = {
-								"index":1,   //客户端发送指令序号，从1开始，自动递增
-								"param":{
-									"cityid":param.cityInfo.index,
-									"taskid":taskID
-								}
-
-						}
+//						var postData = {
+//								"index":1,   //客户端发送指令序号，从1开始，自动递增
+//								"param":{
+//									"cityid":self.cityIndex,
+//									"taskids":taskID
+//								}
+//
+//						}
+						cc.log(postData);
+//						cc.log(postData.toString());
 						req.send(postData);
+//						req.send("{index:1, param:{cityid:10,taskids:[1,3,6]}");
+//						req.send("postData={\"index\":2,\"param\":{\"cityid\":10,\"taskids\":[1, 2, 3]}}");
+//						req.
 					};
-					param.btnCancel = function(){
+					dlgParam.btnCancel = function(){
 						self.removeChild(self.dialog, true);
 						self.okItem.setEnabled(true);
 						self.canChangePage = true;
 						cc.log("canchanggePage...", self.canChangePage);
 					};
-					self.dialog = new MyDialog(param);
+					self.dialog = new MyDialog(dlgParam);
 					self.dialog.attr({
 						x:size.width/2,
 						y:size.height/2,
@@ -187,7 +207,7 @@ var TeskLayer = cc.Layer.extend({
 		}
 		
 		if (this.teskList.length > 0){
-			this.teskList[0].runAction(cc.sequence(cc.moveTo(1.5, cc.p(0,0)), cc.callFunc(function(){
+			this.teskList[0].runAction(cc.sequence(cc.moveTo(0.7, cc.p(0,0)), cc.callFunc(function(){
 				this.teskList[0].appear();
 			}, this)));
 		}
@@ -263,10 +283,10 @@ var TeskLayer = cc.Layer.extend({
 		};
 		if (scene) {
 			var h = next ? cc.winSize.height : -cc.winSize.height
-			scene.runAction(cc.sequence(cc.moveTo(1.5, cc.p(0,h)), cc.callFunc(function(){
+			scene.runAction(cc.sequence(cc.moveTo(0.7, cc.p(0,h)), cc.callFunc(function(){
 				scene.disappear(nextPage, this);
 			}, this)));
-			this.teskList[index].runAction(cc.sequence(cc.moveTo(1.5, cc.p(0,0)), cc.callFunc(function(){
+			this.teskList[index].runAction(cc.sequence(cc.moveTo(0.7, cc.p(0,0)), cc.callFunc(function(){
 				this.teskList[index].appear();
 			}, this)));
 			

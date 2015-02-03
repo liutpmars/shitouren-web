@@ -5,18 +5,18 @@ var ScoreLayer  = cc.Layer.extend({
 		
 		var sp1 = new cc.Sprite(res.ScoreBack_png);
 		sp1.attr({
-			x: cc.winSize.width/2 -400,
-			y: cc.winSize.height/2-200,
+			x: cc.winSize.width/2 ,
+			y: cc.winSize.height/2,
 			anchorX: 0.5,
 			anchorY: 0.5,
-			scale:0.27
+			scale:0.5
 		});
 		this.addChild(sp1);
 		
 		var spScore = new cc.Sprite(res.Score_png);
 		spScore.attr({
-			x: cc.winSize.width/2 -400,
-			y: cc.winSize.height/2-200,
+			x: cc.winSize.width/2 ,
+			y: cc.winSize.height/2,
 			anchorX: 0.5,
 			anchorY: 0.5,
 			scale:0.27
@@ -31,8 +31,8 @@ var ScoreLayer  = cc.Layer.extend({
 		txtScore.setFontSize(40);
 		txtScore.setColor(cc.color(250, 0, 0, 0));
 		txtScore.attr({
-			x: cc.winSize.width/2 -460,
-			y: cc.winSize.height/2-100,
+			x: cc.winSize.width/2 -60,
+			y: cc.winSize.height/2+100,
 			anchorX: 0.5,
 			anchorY: 0.5,
 			
@@ -44,8 +44,8 @@ var ScoreLayer  = cc.Layer.extend({
 //		txtUseInfo1.setFontSize(40);
 //		txtUseInfo1.setColor(cc.color(250, 0, 0, 0));
 		txtUseInfo1.attr({
-			x: cc.winSize.width/2 -340,
-			y: cc.winSize.height/2-110,
+			x: cc.winSize.width/2 +60,
+			y: cc.winSize.height/2+ 90,
 			anchorX: 0.5,
 			anchorY: 0.5,
 
@@ -57,8 +57,8 @@ var ScoreLayer  = cc.Layer.extend({
 //		txtUseInfo2.setFontSize(40);
 //		txtUseInfo2.setColor(cc.color(250, 0, 0, 0));
 		txtUseInfo2.attr({
-			x: cc.winSize.width/2 -330,
-			y: cc.winSize.height/2-130,
+			x: cc.winSize.width/2 +70,
+			y: cc.winSize.height/2+70,
 			anchorX: 0.5,
 			anchorY: 0.5,
 

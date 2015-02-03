@@ -1,11 +1,6 @@
 var res = {
 		firstPage_png: "res/firstPage.png",
-		firstPage_plist: "res/firstPage.plist",
-		
-		
-		
-		
-		
+		firstPage_plist: "res/firstPage.plist",	
 };
 
 var g_resources = [];

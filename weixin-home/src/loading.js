@@ -94,7 +94,7 @@ Loading = cc.Scene.extend(/** @lends cc.LoaderScene# */{
 	},
 
 	_initStage: function (centerPos) {
-		cc.log("wwwwwwwwwwww");
+//		cc.log("wwwwwwwwwwww");
 		if (cc.renderContextType === cc.CANVAS) {
 			this._logo = cc.Sprite.createWithTexture(this._logoTexture);
 //			this._logo = new cc.Sprite("res/stLogo.png");
@@ -106,17 +106,20 @@ Loading = cc.Scene.extend(/** @lends cc.LoaderScene# */{
 		}
 		this._logo.setPosition(centerPos);
 		
-//		var logoSize = this._logo.getContentSize();
-//		cc.log("logoSize.width...","w = ", logoSize.width, "h = ", logoSize.height);
-//		var dx = cc.winSize.width/logoSize.width;
-//		var dy = cc.winSize.height/logoSize.height;
-//		cc.log("logo...","dx = ", dx, "dy = ", dy);
+		var logoSize = this._logo.getContentSize();
+		cc.log("logoSize.width...","w = ", logoSize.width, "h = ", logoSize.height);
+		var dx = cc.winSize.width/logoSize.width;
+		var dy = cc.winSize.height/logoSize.height;
+		cc.log("logo...","dx = ", dx, "dy = ", dy);
 		
 		if(cc.container.clientWidth < cc.container.clientHeight){
-			this._logo.setScale(0.4, 0.1);
+//			this._logo.setScale(0.4, 0.1);
+			this._logo.setScale(dx*0.16, dy*0.15);
 		}else{
-			this._logo.setScale(0.4, 0.1);
+//			this._logo.setScale(0.4, 0.1);
+			this._logo.setScale(dx*0.1, dy*0.23);
 		}
+		
 		this._bgLayer.addChild(this._logo, 10);
 
 		//load resources
