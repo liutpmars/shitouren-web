@@ -250,12 +250,16 @@ var HelloWorldLayer = cc.Layer.extend({
     						}
     						if (isHavData){
     							var param = {"teskID":mpItem.id, "cityInfo":mpItem};
-    							var tesklayer = new TeskLayer(param);
+    							
+    							
+    							var tasklayer = new TeskLayer(param);
 //  							tesklayer.setPosition(cc.winSize.width/2, cc.winSize.height/2);
-    							self.addChild(tesklayer);
+//    							self.addChild(tasklayer);
     							mapLayerState = 2;
-    							self.smallMap.setVisible(false);
-    							self.bigMap.setVisible(false);
+    							mainScene.addChild(tasklayer);
+    							mainScene.removeChild(self, true);
+//    							self.smallMap.setVisible(false);
+//    							self.bigMap.setVisible(false);
     							break;
     						}
     						

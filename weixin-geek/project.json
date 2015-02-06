@@ -12,6 +12,7 @@
 
     "jsList" : [
         "src/resource.js",
+        "src/common.js",
         "src/mapData.js",
         "src/myDialog.js",
         "src/loading.js",

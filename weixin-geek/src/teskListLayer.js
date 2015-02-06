@@ -71,6 +71,7 @@ var TeskLayer = cc.Layer.extend({
 //		this.addChild(rNode);
 		
 		var self = this;
+		
 		// add a "close" icon to exit the progress. it's an autorelease object
 		var okItem = new cc.MenuItemImage(
 				res.btnOK,
@@ -243,11 +244,10 @@ var TeskLayer = cc.Layer.extend({
 					var delta = touch.getLocation().y - this.startPosY;
 					cc.log("delta...", delta);
 					if (delta > -3 && delta < 3){
-						cc.log("dianji le zheli......");
 						var cell = self.teskList[self.currentIndex];
 						var pt = touch.getLocation();
 						pt = cell.convertToNodeSpace(pt);
-						cc.log(pt.x,pt.y);
+						cc.log("dianji le zheli......", pt.x,pt.y);
 						if (cell.isSelCtol(pt)){
 							var isSel = cell.getMarkVisible();
 							cell.setMarkVisible(!isSel);
@@ -441,4 +441,8 @@ var TeskList = cc.Layer.extend({
 		}
 		return false;
 	},
+});
+
+Stone.registerLayer("TeskLayer", function(){
+	return new TeskLayer();
 });
