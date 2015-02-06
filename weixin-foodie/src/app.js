@@ -144,7 +144,7 @@ var HelloWorldLayer = cc.Layer.extend({
 			
 			var bigcity = new cc.Sprite(mpItem.pic);
 			bigcity.setPosition(pos);
-			bigcity.setScale(0.5);
+//			bigcity.setScale(0.5);
 			this.bigMap.addChild(bigcity);
 			this.bigCityList.push(bigcity);
 			
@@ -244,9 +244,11 @@ var HelloWorldLayer = cc.Layer.extend({
     						var mpItem = md[j];
     						self.backButton.setVisible(false);
     						cc.log("mpItem.id = ", mpItem.id);
-    						var isHavData = Tesks[mpItem.id];
+    						var isHavData;
     						if (curPro == "food"){
     							isHavData = Foods[mpItem.id];
+    						}else{
+    							isHavData = Tesks[mpItem.id];
     						}
     						if (isHavData){
     							var param = {"teskID":mpItem.id, "cityInfo":mpItem};

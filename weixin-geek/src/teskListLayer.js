@@ -131,7 +131,7 @@ var TeskLayer = cc.Layer.extend({
 //						postData = postData.substring(0, postData.length - 2);
 						postData = postData + "]}}";
 						
-//						var postData = {
+//						var postData =  {
 //								"index":1,   //客户端发送指令序号，从1开始，自动递增
 //								"param":{
 //									"cityid":self.cityIndex,
@@ -142,6 +142,7 @@ var TeskLayer = cc.Layer.extend({
 						cc.log(postData);
 //						cc.log(postData.toString());
 						req.send(postData);
+//						req.
 //						req.send("{index:1, param:{cityid:10,taskids:[1,3,6]}");
 //						req.send("postData={\"index\":2,\"param\":{\"cityid\":10,\"taskids\":[1, 2, 3]}}");
 //						req.
