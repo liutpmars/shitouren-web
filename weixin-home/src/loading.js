@@ -97,7 +97,7 @@ Loading = cc.Scene.extend(/** @lends cc.LoaderScene# */{
 	_initStage: function (centerPos) {
 //		cc.log("wwwwwwwwwwww");
 		if (cc.renderContextType === cc.CANVAS) {
-			this._logo = cc.Sprite.createWithTexture(this._logoTexture);
+//			this._logo = cc.Sprite.createWithTexture(this._logoTexture);
 			this._logo = new cc.Sprite("res/stLogo.png");
 		} else {
 			this._texture2d = new cc.Texture2D();
@@ -109,8 +109,12 @@ Loading = cc.Scene.extend(/** @lends cc.LoaderScene# */{
 		
 		var logoSize = this._logo.getContentSize();
 		cc.log("logoSize.width...","w = ", logoSize.width, "h = ", logoSize.height);
-		var dx = cc.winSize.width/logoSize.width;
-		var dy = cc.winSize.height/logoSize.height;
+		var dx = 6;
+		var dy = 1;
+		if(logoSize.width != 0 && logoSize.height != 0){
+			dx = cc.winSize.width/logoSize.width;
+			dy = cc.winSize.height/logoSize.height;
+		}
 		cc.log("logo...","dx = ", dx, "dy = ", dy);
 		
 		if(cc.container.clientWidth < cc.container.clientHeight){
